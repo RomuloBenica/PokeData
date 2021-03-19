@@ -38,7 +38,7 @@ function ListPokemon(){
   }
   
   const getPokemon = async () => {
-    await api.get('pokemon').then(res => {
+    await api.get('pokemon/?limit=1200').then(res => {
       console.log(res.data.results);
       setPokemons(res.data.results);
 
@@ -48,9 +48,10 @@ function ListPokemon(){
   }
   
   const getImgPokemon = async (index) => {
-    await api.get(`pokemon/150/`).then(res => {
-      console.log(res.data.sprites.front_default);
+    await api.get(`pokemon/1`).then(res => {
       setImgPokemons(res.data.sprites.front_default);
+      console.log(res.data.sprites.front_default);
+      console.log(res.data.types[0].type.name);
     }).catch(error => {
       console.log(`Erro ao pegar lista de pokemons ${error}`);
     })
