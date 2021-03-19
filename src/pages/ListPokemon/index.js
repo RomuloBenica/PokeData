@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components'
-import Button from '../../components/Button';
 import TableList from '../../components/TableList';
 
 import imgBackground from '../../assets/img/21019.jpg';
@@ -18,23 +17,31 @@ const Container = styled.div`
   background-color: #cccccc;
 `;
 
-// const DivList = styled.div`
-//   width: 400px;
-//   height: 600px;
-//   overflow: hidden;
-//   background-color: #cccccc;
-//   margin:50px 0 0 60vw;
-// `;
 
+function createData(name, type) {
+  return { name, type};
+}
 
 function ListPokemon(){
+  let listNames = []
   const [pokemons, setPokemons ] = useState([]);
   const [imgPokemons, setImgPokemons ] = useState('');
+  const [dataList, setDataList] = useState([{name:'Nome', type:'Tipo'}]);
 
+  const addNameList = () => {
+    pokemons.map((pokemon, index) => {
+      setDataList([
+        ...dataList,
+        dataList.push({ name:pokemon.name, type:index})
+      ]);
+    })
+  }
+  
   const getPokemon = async () => {
     await api.get('pokemon').then(res => {
       console.log(res.data.results);
       setPokemons(res.data.results);
+
     }).catch(error => {
       console.log(`Erro ao pegar lista de pokemons ${error}`);
     })
@@ -51,22 +58,16 @@ function ListPokemon(){
 
   useEffect(() => {
     getPokemon();
-    getImgPokemon()
+    getImgPokemon();
   }, []);
+  
+  useEffect(() => {
+    addNameList();
+  }, [pokemons]);
 
   return(
     <Container>
-        {/* {
-          pokemons.map((pokemon, index) => {
-            console.log(pokemon.name);
-            return ( 
-            <div>
-              <text>{pokemon.name}</text>
-              <img src={imgPokemons}></img>
-            </div>)
-          })
-        } */}
-        <TableList value={pokemons}></TableList>
+        <TableList key="tabreList" value={dataList}></TableList>
     </Container>
   )
 }
