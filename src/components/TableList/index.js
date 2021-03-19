@@ -619,14 +619,29 @@ const useStyles2 = makeStyles({
 
 const ContainerList = styled.div`
   width: 450px;
-  height:80%;
-  max-height: 750px;
+  height:95%;
+  max-height: 800px;
+  overflow: scroll;
+  margin-top:20px;
 
+  ::-webkit-scrollbar-track {
+      display:none;  
+    }
+    ::-webkit-scrollbar {
+        width: 10px;
+        background: none;
+    }
+    ::-webkit-scrollbar-thumb {
+        background: #092CDC;
+        width: 6px;
+        border-radius: 50px;
+    }
 `;
 
 const ListBody = styled.div`
   display: flex;
   flex-direction: column;
+  width: 100%;
 `;
 const ListHeader = styled.div`
   display: flex;
@@ -750,7 +765,7 @@ export default function TableList(props) {
           <ListRows>
             <TablePagination
               style={{'color':'#fff'}}
-              rowsPerPageOptions={[10, 50, 100 , { label: 'Todos', value: -1 }]}
+              rowsPerPageOptions={[7, 25, 50, 100 , { label: 'Todos', value: -1 }]}
               colSpan={3}
               count={logs.length}
               rowsPerPage={rowsPerPage}
