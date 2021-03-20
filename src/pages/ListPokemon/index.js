@@ -82,14 +82,14 @@ function ListPokemon(){
       })
       toast.update("loadingTypes", { 
         render: `Verificando tipo de cada pokemon ...${type} !`,
-        type: toast.TYPE.SUCCESS,
+        type: toast.TYPE.INFO,
         position: "top-center",
         autoClose: 4000,
       })
     }
     toast.update("loadingTypes", { 
       render: `Registrados com sucesso !`,
-      type: toast.TYPE.SUCCESS,
+      type: toast.TYPE.INFO,
       position: "top-center",
       autoClose: 4000,
     })
