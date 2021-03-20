@@ -1,0 +1,34 @@
+/* css para tirar fundo da tela e conseguir abrir mais de uma dialog */
+.Dialog {
+    display: 1;
+    width: 100%;
+    height: 100%;
+
+    margin-left: -100vw;
+
+    /* font-family: var(--var-font-family); */
+  }
+
+  .Dialog .MuiDialog-paperWidthSm{
+    left: 120vw;
+    width: 300px;
+    background: rgba(5, 25, 201, 0.671);
+    color: #fff;
+    margin-top: 50px;
+  }
+
+  @media(max-width: 960px){
+    .Dialog .MuiDialog-paperWidthSm{
+      width: 40vw;
+      max-width: 300px;
+      max-height: 80vh;
+    }
+  }
+
+  @media(max-width: 560px){
+    .Dialog .MuiDialog-paperWidthSm{
+      max-width: 70vw;
+      min-width: 250px;
+      max-height: 80vh;
+    }
+  }

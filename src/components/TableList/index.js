@@ -90,7 +90,8 @@ const useStyles2 = makeStyles({
 const ContainerList = styled.div`
   width: 450px;
   height:95%;
-  max-height: 800px;
+  max-width: 100vw;
+  max-height: 95vh;
   overflow: scroll;
   margin-top:20px;
 
@@ -118,7 +119,7 @@ const ListHeader = styled.div`
   align-items: center;
   width: 100%;
   height: 55px;
-  background-color: #092CDC;
+  background-color: rgba(5, 25, 201, 0.671);
   border-radius: 8px;
   margin: 5px;
 `;
@@ -151,12 +152,13 @@ const ListCell = styled.div`
   color: white;
   font-weight: bolder;
 `;
-const InputTeste = styled.input`
+const Input = styled.input`
   width: 100px;
   height: 25px;
   border: none;
   border-radius: 8px;
   margin: 0px 0px 0px 10px;
+  z-index: 1999;
 `;
 const Label = styled.label`
   color: #fff;;
@@ -199,17 +201,17 @@ export default function TableList(props) {
         <ListBody>
           <ListHeader>
             <Label >Filtrar</Label>
-            <InputTeste 
+            <Input 
               type="text" 
               value={valueFilter}
               onChange={e => setValueFilter(e.target.value)}  
-            ></InputTeste>
+            ></Input>
           </ListHeader>
           {(rowsPerPage > 0 && rowsPerPage <= dataList.length
             ? dataList.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             : dataList
           ).map((log, index) => (
-            <ListRows key={`${index}rows`} onClick={() =>  props.onClick(index+1)}>
+            <ListRows key={`${index}rows`} onClick={() =>  props.onClick(log.name)}>
               <ListCell key={`${index}cell1`}>
                 {log.name}
               </ListCell>
