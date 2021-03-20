@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components'
 import TableList from '../../components/TableList';
 import { ToastContainer, toast } from 'react-toastify';
+import Card from '../../components/Card';
 
 import imgBackground from '../../assets/img/21019.jpg';
 import api from '../../services/api';
@@ -27,7 +28,14 @@ function ListPokemon(){
   let listNames = []
   const [namesPokemons, setNamesPokemons ] = useState([]);
   const [loadType, setLoadType] = useState(true);
-  const [imgPokemons, setImgPokemons ] = useState('');
+  const [openCard, setOpenCard] = useState(false);
+  const [imgPokemon, setImgPokemon] = useState('');
+  const [defense, setDefense] = useState('');
+  const [life, setLife] = useState('');
+  const [power, setPower] = useState('');
+  const [name, setName] = useState('');
+  const [type, setType] = useState('');
+  const [abilities, setAbilities] = useState([])
   const [typesPokemon, setTypesPokemon ] = useState([]);
   const [dataList, setDataList] = useState([]);
 
@@ -119,10 +127,33 @@ function ListPokemon(){
     }
   }
 
-  const getInfosPokemon = (indexPokemon) => {
-    alert(indexPokemon);
+  const getInfosPokemon = async (indexPokemon) => {
+    await api.get(`pokemon/${indexPokemon}`).then(res => {
+      // setImgPokemons(res.data.sprites.front_default);
+      console.log(res.data.sprites.front_default);
+      console.log(res.data.types[0].type.name);
+      // console.log(res.data.sprites.front_default);
+      // console.log(res.data.stats[3].base_stat);
+      // console.log( res.data.stats[0].base_stat);
+      console.log(res.data);
+      setImgPokemon(res.data.sprites.front_shiny);
+      setDefense(res.data.stats[3].base_stat);
+      setLife(res.data.stats[0].base_stat);
+      setPower(res.data.stats[1].base_stat);
+      setAbilities([res.data.abilities[0].ability.name, res.data.abilities[1].ability.name])
+      setName(indexPokemon);
+
+      console.log(abilities[0], abilities[1]);
+      console.log(`Vida: ${life}  Poder: ${power}  Defesa: ${defense}`);
+      setOpenCard(true);
+    }).catch(error => {
+      console.log(`Erro ao pegar lista de pokemons ${error}`);
+    })
   }
 
+  const handleCloseCard = () => {
+    return setOpenCard(false);
+  }
   useEffect(() => {
     getNamesPokemon();
   }, []);
@@ -137,6 +168,15 @@ function ListPokemon(){
       <Container>
         <TableList key="tabreList" value={dataList} loadType={loadType} onClick={getInfosPokemon}></TableList>
       </Container>
+      <Card 
+        open={openCard}
+        img={imgPokemon}
+        name={name}
+        abilities={abilities}
+        defense={defense}
+        attack={power}
+        life={life}
+        onClose={handleCloseCard}></Card>
     </>
   )
 }
