@@ -1,0 +1,13 @@
+.TablePagination{
+    color: #fff;
+    overflow: visible;
+}
+
+.TablePagination .MuiToolbar-gutters{
+    padding: none;
+    color: #fff;
+}
+.TablePagination .MuiTablePagination-selectRoot{
+    margin-right: 0;
+}
+

@@ -19,13 +19,8 @@ const Container = styled.div`
   background-color: #cccccc;
 `;
 
-
-function createData(name, type) {
-  return { name, type};
-}
-
 function ListPokemon(){
-  let listNames = []
+
   const [namesPokemons, setNamesPokemons ] = useState([]);
   const [loadType, setLoadType] = useState(true);
   const [openCard, setOpenCard] = useState(false);
@@ -40,7 +35,7 @@ function ListPokemon(){
   const [dataList, setDataList] = useState([]);
 
   const addNameList = () => {
-    namesPokemons.map((pokemon, index) => {
+    namesPokemons.map((pokemon) => {
       setDataList([
         ...dataList,
         dataList.push({ name:pokemon.name, type:''})
@@ -55,7 +50,6 @@ function ListPokemon(){
       toast.info(`Lisatem de nome pokemons concluida !`, {
         position: "top-center",
         toastId: "loadingName",
-        autoClose: false,
         hideProgressBar: false,
         closeOnClick: false,
         pauseOnHover: true,
@@ -71,22 +65,14 @@ function ListPokemon(){
   }
   
   const createDataList = () => {
-    console.log("data list >>>");
-    console.log(dataList);
-    console.log(typesPokemon.length)
     for(let i = 0; i < dataList.length; i++){
       dataList[i].type = typesPokemon[i];
-      console.log(i);
-      console.log(dataList[i]);
-      console.log(typesPokemon[i]);
     }
     setLoadType(false);//fica falso quando acaba de buscar o dados e criar nova lista, useEffect esta monitorando para atualizar lista com os types
-    console.log(dataList);
   }
 
   const getTypesPokemon = async (qtd) => {
-    console.log(parseInt(qtd));
-    toast.info(`Verificando tipo de cada um...`, {
+    toast.info(`Verificando tipo de cada pokemon ...`, {
       position: "top-center",
       toastId: "loadingTypes",
       autoClose: false,
@@ -96,21 +82,16 @@ function ListPokemon(){
       draggable: true,
       progress: undefined,
     });
-    let type 
+    let type;
     for(let i = 0 ; i <= qtd+1; i++){
       await api.get(`pokemon/${i+1}`).then(res => {
-        // setImgPokemons(res.data.sprites.front_default);
-        console.log(res.data.sprites.front_default);
-        console.log(res.data.types[0].type.name);
-        console.log(res.data);
         type = res.data.types[0].type.name;
         setTypesPokemon(typesPokemon.push(res.data.types[0].type.name));
-        console.log(typesPokemon.length);
       }).catch(error => {
         console.log(`Erro ao pegar informaçoes do pokemons ${error}`);
       })
       toast.update("loadingTypes", { 
-        render: `Verificando tipo de cada um ${type} !`,
+        render: `Verificando tipo de cada pokemon ...${type} !`,
         type: toast.TYPE.SUCCESS,
         position: "top-center",
         autoClose: 4000,
@@ -123,30 +104,18 @@ function ListPokemon(){
       autoClose: 4000,
     })
     if(parseInt(qtd) <= typesPokemon.length){
-      console.log('e maior ou igual ******')
-      console.log(parseInt(qtd), typesPokemon.length)
       createDataList();
     }
   }
 
   const getInfosPokemon = async (indexPokemon) => {
     await api.get(`pokemon/${indexPokemon}`).then(res => {
-      // setImgPokemons(res.data.sprites.front_default);
-      console.log(res.data.sprites.front_default);
-      console.log(res.data.types[0].type.name);
-      // console.log(res.data.sprites.front_default);
-      // console.log(res.data.stats[3].base_stat);
-      // console.log( res.data.stats[0].base_stat);
-      console.log(res.data);
       setImgPokemon(res.data.sprites.front_shiny);
       setDefense(res.data.stats[3].base_stat);
       setLife(res.data.stats[0].base_stat);
       setPower(res.data.stats[1].base_stat);
       setAbilities([res.data.abilities[0].ability.name, res.data.abilities[1].ability.name])
       setName(indexPokemon);
-
-      console.log(abilities[0], abilities[1]);
-      console.log(`Vida: ${life}  Poder: ${power}  Defesa: ${defense}`);
       setOpenCard(true);
     }).catch(error => {
       console.log(`Erro ao pegar lista de pokemons ${error}`);

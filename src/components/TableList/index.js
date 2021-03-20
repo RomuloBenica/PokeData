@@ -15,6 +15,8 @@ import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import LastPageIcon from '@material-ui/icons/LastPage';
 import FirstPageIcon from '@material-ui/icons/FirstPageOutlined';
 
+import './styles.css';
+
 const useStyles1 = makeStyles((theme) => ({
   root: {
     flexShrink: 0,
@@ -117,6 +119,7 @@ const ListHeader = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: center;
   width: 100%;
   height: 55px;
   background-color: rgba(5, 25, 201, 0.671);
@@ -153,13 +156,15 @@ const ListCell = styled.div`
   font-weight: bolder;
 `;
 const Input = styled.input`
-  width: 100px;
-  height: 25px;
+  width: 200px;
+  height: 30px;
   border: none;
   border-radius: 8px;
+  display:flex;
+  background: rgba(255, 255, 255, 0.708);
   margin: 0px 0px 0px 10px;
-  color: #000;
-  z-index: 1999;
+  color: #fff;  
+  
 `;
 const Label = styled.label`
   color: #fff;;
@@ -193,7 +198,6 @@ export default function TableList(props) {
     let filter = dataList.filter(logs => (logs.name === valueFilter.toLowerCase() || logs.type === valueFilter.toLowerCase()));
     if(filter != ''){
       setDataList(filter)
-      console.log(filter)
     }
   }, [valueFilter, props.loadType])
 
@@ -202,7 +206,7 @@ export default function TableList(props) {
       <Table className={classes.table} aria-label="custom pagination table">
         <ListBody>
           <ListHeader>
-            <Label >Filtrar</Label>
+            <Label >Filtrar :</Label>
             <Input 
               type="text" 
               value={valueFilter}
@@ -214,7 +218,7 @@ export default function TableList(props) {
             ? dataList.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             : dataList
           ).map((log, index) => (
-            <ListRows key={`${index}rows`} onClick={() =>  props.onClick(log.name)}>
+            <ListRows id={`row${log.name}`} key={`${index}rows`} onClick={() =>  props.onClick(log.name)}>
               <ListCell key={`${index}cell1`}>
                 {log.name}
               </ListCell>
@@ -233,7 +237,7 @@ export default function TableList(props) {
         <TableFooter>
           <ListRows>
             <TablePagination
-              style={{'color':'#fff'}}
+              className='TablePagination'
               rowsPerPageOptions={[7, 25, 50, 100 , { label: 'Todos', value: -1 }]}
               colSpan={3}
               count={dataList.length}
