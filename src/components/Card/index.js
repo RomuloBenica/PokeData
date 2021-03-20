@@ -93,7 +93,7 @@ function Card({open, name, img, defense, attack, life, abilities, onClose}) {
           </DivData>
         </DivContent>
         <DialogActions>
-          <Button onClick={onClose} color="primary">
+          <Button onClick={onClose} color="inherit">
             Sair
           </Button>
         </DialogActions>
