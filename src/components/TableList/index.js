@@ -158,6 +158,7 @@ const Input = styled.input`
   border: none;
   border-radius: 8px;
   margin: 0px 0px 0px 10px;
+  color: #000;
   z-index: 1999;
 `;
 const Label = styled.label`
@@ -205,6 +206,7 @@ export default function TableList(props) {
             <Input 
               type="text" 
               value={valueFilter}
+              placeholder="Pokemon/Tipo"
               onChange={e => setValueFilter(e.target.value)}  
             ></Input>
           </ListHeader>
