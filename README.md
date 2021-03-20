@@ -24,11 +24,11 @@
 
 ### Foram utilizados
 
-- [x] PokeApi
-- [x] React.js
-- [x] styled-component
-- [x] Material-ui
-- [x] React-toastify
+- [x] [PokeApi](https://pokeapi.co/)
+- [x] [React.js](https://pt-br.reactjs.org/)
+- [x] [styled-component](https://styled-components.com/)
+- [x] [Material-ui](https://material-ui.com/getting-started/installation/)
+- [x] [React-toastify](https://fkhadra.github.io/react-toastify/introduction)
 
 
 ## Pré Requisitos
