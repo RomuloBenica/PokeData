@@ -4,20 +4,10 @@ import TableList from '../../components/TableList';
 import { ToastContainer, toast } from 'react-toastify';
 import Card from '../../components/Card';
 
-import imgBackground from '../../assets/img/21019.jpg';
+import Container from '../../components/Container';
+
 import api from '../../services/api';
 
-const Container = styled.div`
-  width: 100%;
-  height: 100vh;
-
-  display:flex;
-  flex-direction:column;
-  background: url(${imgBackground});
-  background-size: auto;
-  
-  background-color: #cccccc;
-`;
 
 function ListPokemon(){
 

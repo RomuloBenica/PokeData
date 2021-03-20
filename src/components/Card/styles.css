@@ -12,23 +12,29 @@
   .Dialog .MuiDialog-paperWidthSm{
     left: 120vw;
     width: 300px;
-    background: rgba(5, 25, 201, 0.671);
+    max-height: 800px;
+    background: rgb(3, 16, 126);
     color: #fff;
     margin-top: 50px;
+    border-radius: 8px;
   }
 
   @media(max-width: 960px){
     .Dialog .MuiDialog-paperWidthSm{
       width: 40vw;
-      max-width: 300px;
-      max-height: 80vh;
+      max-width: 360px;
+      max-height: 550px;
     }
   }
 
   @media(max-width: 560px){
+    .Dialog {
+      margin-left: -120vw;
+    }
+
     .Dialog .MuiDialog-paperWidthSm{
-      max-width: 70vw;
-      min-width: 250px;
-      max-height: 80vh;
+      left: 120vw;
+      width: 100vw;
+      height: 95vh;
     }
   }

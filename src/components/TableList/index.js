@@ -2,9 +2,16 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
+import ContainerList from '../ContainerList';
+import ListBody from '../ListBody';
+import ListHeader from '../ListHeader';
+import ListRows from '../ListRows';
+import ListCell from '../ListCell';
+import Input from '../Input';
+import Label from '../Label';
+
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
-
 import TableCell from '@material-ui/core/TableCell';
 import TableFooter from '@material-ui/core/TableFooter';
 import TablePagination from '@material-ui/core/TablePagination';
@@ -89,89 +96,6 @@ const useStyles2 = makeStyles({
     maxWidth: 450,
   },
 });
-const ContainerList = styled.div`
-  width: 450px;
-  height:95%;
-  max-width: 100vw;
-  max-height: 95vh;
-  overflow: scroll;
-  margin-top:20px;
-
-  ::-webkit-scrollbar-track {
-      display:none;  
-    }
-    ::-webkit-scrollbar {
-        width: 10px;
-        background: none;
-    }
-    ::-webkit-scrollbar-thumb {
-        background: #092CDC;
-        width: 6px;
-        border-radius: 50px;
-    }
-`;
-const ListBody = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-`;
-const ListHeader = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 55px;
-  background-color: rgba(5, 25, 201, 0.671);
-  border-radius: 8px;
-  margin: 5px;
-`;
-const ListRows = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items:center;
-  justify-content:center;
-
-  width: 97%;
-  height: 55px;
-  border: 1px solid #092CDC;
-  border-radius: 10px;
-  cursor: pointer;
-  margin: 5px;
-  overflow: hidden;
-  box-shadow: 8px 3px 10px white;
-
-  :hover{
-    box-shadow: 0px 3px 5px white;
-  }
-  
-`;
-const ListCell = styled.div`
-  display: flex;
-  align-items: center;
-  width: 50%;
-  max-width:150px;
-  height: 100%;
-  color: white;
-  font-weight: bolder;
-`;
-const Input = styled.input`
-  width: 200px;
-  height: 30px;
-  border: none;
-  border-radius: 8px;
-  display:flex;
-  background: rgba(255, 255, 255, 0.708);
-  margin: 0px 0px 0px 10px;
-  color: #fff;  
-  
-`;
-const Label = styled.label`
-  color: #fff;;
-  margin: 5px;
-  font-weight: bolder;
-`;
-
 
 export default function TableList(props) {
   const classes = useStyles2();
