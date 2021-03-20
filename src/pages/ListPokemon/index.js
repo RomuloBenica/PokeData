@@ -37,7 +37,7 @@ function ListPokemon(){
     await api.get('pokemon/?limit=800').then(res => {
       console.log(res.data.results.length);
       setNamesPokemons(res.data.results);
-      toast.info(`Lisatem de nome pokemons concluida !`, {
+      toast.info(`Lisagem de nomes concluida !`, {
         position: "top-center",
         toastId: "loadingName",
         hideProgressBar: false,
