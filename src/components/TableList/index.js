@@ -188,7 +188,8 @@ export default function TableList(props) {
 
   useEffect(() => {
     setDataList(pokemons)
-    let filter = dataList.filter(logs => (logs.name === valueFilter || logs.type === valueFilter));
+    // valueFilter convertido para low case para melhorar a usabilidade de quem acessar por celular
+    let filter = dataList.filter(logs => (logs.name === valueFilter.toLowerCase() || logs.type === valueFilter.toLowerCase()));
     if(filter != ''){
       setDataList(filter)
       console.log(filter)

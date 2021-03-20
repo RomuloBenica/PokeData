@@ -74,9 +74,11 @@ function ListPokemon(){
     console.log("data list >>>");
     console.log(dataList);
     console.log(typesPokemon.length)
-    for(let i = 0; i < typesPokemon.length-1; i++){
+    for(let i = 0; i < dataList.length; i++){
       dataList[i].type = typesPokemon[i];
-      console.log(typesPokemon[i])
+      console.log(i);
+      console.log(dataList[i]);
+      console.log(typesPokemon[i]);
     }
     setLoadType(false);//fica falso quando acaba de buscar o dados e criar nova lista, useEffect esta monitorando para atualizar lista com os types
     console.log(dataList);
