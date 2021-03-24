@@ -30,7 +30,7 @@ function ListPokemon(){
   }
 
   const getNamesPokemon = () => {
-    api.get('pokemon/?limit=800').then(res => {
+    api.get('pokemon/?limit=1118').then(res => {
       console.log(res.data.results.length);
       setNamesPokemons(res.data.results);
       toast.info(`Listagem de nomes concluida !`, {
