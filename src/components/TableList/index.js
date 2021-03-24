@@ -140,11 +140,12 @@ export default function TableList(props) {
       draggable: true,
       progress: undefined,
     });
-      api.get(`type/${valueFilter}`).then(res => {
-        addNameListFilter(res.data.pokemon);
-      }).catch(error => {
-        console.log(`Erro ao pegar informaçoes do pokemons ${error}`);
-      });
+    api.get(`type/${valueFilter}`).then(res => {
+      addNameListFilter(res.data.pokemon);
+    }).catch(error => {
+      setDataList(pokemons);
+      console.log(`Erro ao pegar informaçoes do pokemons ${error}`);
+    });
     toast.update("loadingTypes", { 
       render: `Filtrado com sucesso !`,
       type: toast.TYPE.INFO,
