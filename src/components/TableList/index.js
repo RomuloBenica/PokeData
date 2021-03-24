@@ -9,7 +9,7 @@ import ListHeader from '../ListHeader';
 import ListRows from '../ListRows';
 import ListCell from '../ListCell';
 import Input from '../Input';
-import Label from '../Label';
+import Button from '../Button';
 
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -171,14 +171,13 @@ export default function TableList(props) {
       <Table className={classes.table} aria-label="custom pagination table">
         <ListBody>
           <ListHeader>
-            <Label >Filtrar :</Label>
             <Input 
               type="text" 
               value={valueFilter}
               placeholder="Pokemon/Tipo"
               onChange={e => setValueFilter(e.target.value)}  
             ></Input>
-            <button onClick={getTypesPokemon}>Confirmar</button>
+            <Button onClick={getTypesPokemon}>Filtrar</Button>
           </ListHeader>
           {(rowsPerPage > 0 && rowsPerPage <= dataList.length
             ? dataList.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
