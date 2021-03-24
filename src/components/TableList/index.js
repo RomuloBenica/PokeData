@@ -119,7 +119,7 @@ export default function TableList(props) {
   useEffect(() => {
     setDataList(pokemons)
     // valueFilter convertido para low case para melhorar a usabilidade de quem acessar por celular
-    let filter = dataList.filter(logs => (logs.name === valueFilter.toLowerCase() || logs.type === valueFilter.toLowerCase()));
+    let filter = dataList.filter(pokemon => (pokemon.name === valueFilter.toLowerCase() || pokemon.type === valueFilter.toLowerCase()));
     if(filter != ''){
       setDataList(filter)
     }
@@ -141,13 +141,13 @@ export default function TableList(props) {
           {(rowsPerPage > 0 && rowsPerPage <= dataList.length
             ? dataList.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             : dataList
-          ).map((log, index) => (
-            <ListRows id={`row${log.name}`} key={`${index}rows`} onClick={() =>  props.onClick(log.name)}>
+          ).map((pokemon, index) => (
+            <ListRows id={`row${pokemon.name}`} key={`${index}rows`} onClick={() =>  props.onClick(pokemon.name)}>
               <ListCell key={`${index}cell1`}>
-                {log.name}
+                {pokemon.name}
               </ListCell>
               <ListCell key={`${index}cell2`}>
-                {log.type}
+                {pokemon.type}
               </ListCell>
             </ListRows>
           ))}
