@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import { ToastContainer, toast } from 'react-toastify';
 
+import api from '../../services/api';
 import ContainerList from '../ContainerList';
 import ListBody from '../ListBody';
 import ListHeader from '../ListHeader';
@@ -100,11 +101,12 @@ const useStyles2 = makeStyles({
 export default function TableList(props) {
   const classes = useStyles2();
   const [page, setPage] = useState(0);
-  const [pokemons, setPokemons] = useState([]);
+  const [pokemons, setPokemons] = useState(props.value);
   const [valueFilter, setValueFilter] = useState('');
   const [rowsPerPage, setRowsPerPage] = useState(7);
   const [dataList, setDataList] = useState([]);
-  
+  const [dataListFilter, setDataListFilter] = useState([]);
+
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, pokemons.length - page * rowsPerPage);
 
   const handleChangePage = (event, newPage) => {
@@ -115,20 +117,54 @@ export default function TableList(props) {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
-  const filter = () => {
-    setDataList(pokemons);
+
+  const addNameListFilter = (namesFilter) => {
+    namesFilter.map((pokemon) => {
+      setDataListFilter([
+        ...dataListFilter,
+        dataListFilter.push({ name:pokemon.pokemon.name})
+      ]);
+    })
+    return setDataList(dataListFilter);
+  }
+
+  const getTypesPokemon = () => {
+    console.log(valueFilter);
+    toast.info(`Filtrando pokemons tipo :${valueFilter} ...`, {
+      position: "top-center",
+      toastId: "loadingTypes",
+      autoClose: false,
+      hideProgressBar: false,
+      closeOnClick: false,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+      api.get(`type/${valueFilter}`).then(res => {
+        addNameListFilter(res.data.pokemon);
+      }).catch(error => {
+        console.log(`Erro ao pegar informaçoes do pokemons ${error}`);
+      });
+    toast.update("loadingTypes", { 
+      render: `Filtrado com sucesso !`,
+      type: toast.TYPE.INFO,
+      position: "top-center",
+      autoClose: 4000,
+    })
+  }
+
+  useEffect(() => {
+    setDataListFilter([]);
+    if(valueFilter == ''){
+      setDataList(pokemons);
+    }
     // valueFilter convertido para low case para melhorar a usabilidade de quem acessar por celular
     let filter = dataList.filter(pokemon => (pokemon.name === valueFilter.toLowerCase()));
     if(filter != ''){
       return setDataList(filter);
-    }else {
-      return props.getType(valueFilter.toLowerCase());
     }
-  }
 
-  useEffect(() => {
-    setDataList(props.value);
-  }, [valueFilter, props.value]);
+  }, [valueFilter, pokemons]);
 
   return (
     <ContainerList component={Paper}>
@@ -142,7 +178,7 @@ export default function TableList(props) {
               placeholder="Pokemon/Tipo"
               onChange={e => setValueFilter(e.target.value)}  
             ></Input>
-            <button onClick={filter}>Confirmar</button>
+            <button onClick={getTypesPokemon}>Confirmar</button>
           </ListHeader>
           {(rowsPerPage > 0 && rowsPerPage <= dataList.length
             ? dataList.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)

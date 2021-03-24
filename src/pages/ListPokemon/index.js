@@ -19,7 +19,6 @@ function ListPokemon(){
   const [name, setName] = useState('');
   const [abilities, setAbilities] = useState([])
   const [dataList, setDataList] = useState([]);
-  const [dataListFilter, setDataListFilter] = useState([]);
 
   const addNameList = (names) => {
     names.map((pokemon) => {
@@ -28,16 +27,6 @@ function ListPokemon(){
         dataList.push({ name:pokemon.name})
       ]);
     })
-  }
-  
-  const addNameListFilter = (namesFilter) => {
-    namesFilter.map((pokemon) => {
-      setDataListFilter([
-        ...dataListFilter,
-        dataListFilter.push({ name:pokemon.pokemon.name})
-      ]);
-    })
-    return setDataList(dataListFilter);
   }
 
   const getNamesPokemon = () => {
@@ -59,33 +48,6 @@ function ListPokemon(){
     })
   }
   
-
-  const getTypesPokemon = (type) => {
-    console.log(type);
-    toast.info(`Filtrando pokemons tipo :${type} ...`, {
-      position: "top-center",
-      toastId: "loadingTypes",
-      autoClose: false,
-      hideProgressBar: false,
-      closeOnClick: false,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
-      api.get(`type/${type}`).then(res => {
-        
-        addNameListFilter(res.data.pokemon);
-      }).catch(error => {
-        console.log(`Erro ao pegar informaçoes do pokemons ${error}`);
-      });
-    toast.update("loadingTypes", { 
-      render: `Filtrado com sucesso !`,
-      type: toast.TYPE.INFO,
-      position: "top-center",
-      autoClose: 4000,
-    })
-  }
-
   const getInfosPokemon = (indexPokemon) => {
     api.get(`pokemon/${indexPokemon}`).then(res => {
       setImgPokemon(res.data.sprites.front_shiny);
@@ -119,7 +81,6 @@ function ListPokemon(){
         <TableList 
           key="tabreList" 
           value={dataList} 
-          getType={getTypesPokemon} 
           onClick={getInfosPokemon}
         ></TableList>
       </Container>
