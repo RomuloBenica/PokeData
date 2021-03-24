@@ -100,7 +100,7 @@ const useStyles2 = makeStyles({
 export default function TableList(props) {
   const classes = useStyles2();
   const [page, setPage] = useState(0);
-  const [pokemons, setPokemons] = useState(props.value);
+  const [pokemons, setPokemons] = useState([]);
   const [valueFilter, setValueFilter] = useState('');
   const [rowsPerPage, setRowsPerPage] = useState(7);
   const [dataList, setDataList] = useState([]);
@@ -115,15 +115,20 @@ export default function TableList(props) {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
+  const filter = () => {
+    setDataList(pokemons);
+    // valueFilter convertido para low case para melhorar a usabilidade de quem acessar por celular
+    let filter = dataList.filter(pokemon => (pokemon.name === valueFilter.toLowerCase()));
+    if(filter != ''){
+      return setDataList(filter);
+    }else {
+      return props.getType(valueFilter.toLowerCase());
+    }
+  }
 
   useEffect(() => {
-    setDataList(pokemons)
-    // valueFilter convertido para low case para melhorar a usabilidade de quem acessar por celular
-    let filter = dataList.filter(pokemon => (pokemon.name === valueFilter.toLowerCase() || pokemon.type === valueFilter.toLowerCase()));
-    if(filter != ''){
-      setDataList(filter)
-    }
-  }, [valueFilter, props.loadType])
+    setDataList(props.value);
+  }, [valueFilter, props.value]);
 
   return (
     <ContainerList component={Paper}>
@@ -137,6 +142,7 @@ export default function TableList(props) {
               placeholder="Pokemon/Tipo"
               onChange={e => setValueFilter(e.target.value)}  
             ></Input>
+            <button onClick={filter}>Confirmar</button>
           </ListHeader>
           {(rowsPerPage > 0 && rowsPerPage <= dataList.length
             ? dataList.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
