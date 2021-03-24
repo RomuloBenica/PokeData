@@ -21,8 +21,8 @@ function ListPokemon(){
   const [name, setName] = useState('');
   const [type, setType] = useState('');
   const [abilities, setAbilities] = useState([])
-  const [typesPokemon, setTypesPokemon ] = useState([]);
   const [dataList, setDataList] = useState([]);
+  let typesPokemon = [];
 
   const addNameList = () => {
     namesPokemons.map((pokemon) => {
@@ -76,7 +76,8 @@ function ListPokemon(){
     for(let i = 0 ; i <= qtd+1; i++){
       await api.get(`pokemon/${i+1}`).then(res => {
         type = res.data.types[0].type.name;
-        setTypesPokemon(typesPokemon.push(res.data.types[0].type.name));
+        // setTypesPokemon(...typesPokemon,  res.data.types[0].type.name);
+        typesPokemon.push(res.data.types[0].type.name);
       }).catch(error => {
         console.log(`Erro ao pegar informaçoes do pokemons ${error}`);
       })
@@ -93,9 +94,7 @@ function ListPokemon(){
       position: "top-center",
       autoClose: 4000,
     })
-    if(parseInt(qtd) <= typesPokemon.length){
-      createDataList();
-    }
+    createDataList();
   }
 
   const getInfosPokemon = async (indexPokemon) => {
